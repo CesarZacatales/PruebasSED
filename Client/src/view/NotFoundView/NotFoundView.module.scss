@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: "Raleway", sans-serif;
+    font-size: 2rem;
+    color: black;
+  }
+}

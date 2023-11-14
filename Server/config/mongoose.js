@@ -6,7 +6,7 @@ const dbhost = process.env.DBHOST || "localhost";
 const dbport = process.env.DBPORT || "3000";
 const dbname = process.env.DBNAME || "wdyt-uca";
 
-const dburi = 'mongodb://localhost:3000/wdyt-uca/wdyt-uca';
+const dburi = 'mongodb://localhost:27017/wdyt-uca';
 
 const connect = async () => {
   debug(dburi);
@@ -22,4 +22,3 @@ const connect = async () => {
 module.exports = {
   connect
 }
-

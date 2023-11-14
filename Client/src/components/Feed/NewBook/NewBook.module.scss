@@ -1,0 +1,94 @@
+@import '../../../variables';
+
+
+.container{
+    .form-sale-book {
+        width: 400px;
+        background-color: $--theme-background;
+        padding: 30px;
+        margin-left: 300px;
+        margin-top: -10px;
+        font-family: "Raleway", sans-serif;
+        position: relative;
+        font-size: 24px;
+        display: flex;
+        flex-direction: column;
+        .div-input{
+          display: flex;
+          label
+          {
+            position: relative;
+    
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+          }
+    
+          input {
+            display: inline;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            background-color: $--theme-button-1;
+            border: 0;
+            width: 400px;
+            padding: 5px;&.error {
+              outline: 2px solid crimson;
+            }
+          }
+        }
+      
+      textarea {
+        font-size: 24px;
+      }
+      select {
+        font-size: 20px;
+      }
+      label {
+        position: absolute;
+        
+        color: $--theme-text-color;
+        font-weight: 900;
+      }
+      
+      
+      
+      .btn-style-1 {
+        padding: 10px;
+      }
+   
+        .Button{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            .btn-style-1 {
+                width: 110px;
+                height: 37px;
+                background-color: #ecb390;
+                border-radius: 2rem;
+                font-family: "Raleway", sans-serif;
+                font-size: 17px;
+                color: $--theme-text-color;
+                font-weight: 900;
+              }
+              .btn-style-1:hover{
+                color: $--theme-background;
+              }
+             
+                .btn-2:hover:not(:disabled),
+                .btn-2:focus:not(:disabled)  {
+                    color:$--theme_color_hover1;
+                }
+            
+                .btn-2:disabled {
+                    color: #bbb;
+                    cursor: not-allowed;
+                  }
+                
+              
+               
+        }
+      
+    }
+}

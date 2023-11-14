@@ -1,0 +1,23 @@
+@import '../../variables';
+
+.Button{
+    height: 40px;
+    width: 130px;
+    display: flex;
+    background-color: $--theme-button;
+    border-radius: 2rem;
+    color: $--theme-background;
+    border: 0;
+    font-weight: 600;
+    font-family: "Raleway",sans-serif;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor:pointer;
+    &:hover,
+    &:focus  {
+        color:$--theme_color_hover1;
+    }
+
+  
+}

@@ -1,0 +1,19 @@
+@import '../../../variables';
+
+.container {
+  display: flex;
+  gap: 1rem;
+
+  h2 {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-family: "raleway", sans-serif;
+    border-bottom: 1px solid $--theme-background;
+  }
+
+  .section-cards-books {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}

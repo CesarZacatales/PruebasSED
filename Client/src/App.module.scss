@@ -1,0 +1,16 @@
+@import './variables';
+
+.App{
+    background-color: $--theme-background;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 1rem;
+
+    main{
+        flex: 1;
+    
+    }
+
+    
+}
