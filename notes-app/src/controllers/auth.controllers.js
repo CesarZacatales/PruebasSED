@@ -40,11 +40,29 @@ export const signup = async (req, res) => {
 
 export const renderSigninForm = (req, res) => res.render("auth/signin");
 
-export const signin = passport.authenticate("local", {
-  successRedirect: "/notes",
-  failureRedirect: "/auth/signin",
-  failureFlash: true,
-});
+// Dentro de tu controlador de autenticación
+export const signin = (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err); // Manejar errores del servidor
+    }
+    if (!user) {
+      // Autenticación fallida
+      req.flash("error_msg", info.message); // O usa el mensaje de error de Passport
+      console.log("Fallo en passport");
+      return res.redirect("/auth/signin");
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err); // Manejar errores al iniciar sesión
+      }
+      // Redirección en caso de éxito
+      console.log("exito en passport");
+      return res.redirect("/notes");
+    });
+  })(req, res, next);
+};
+
 
 export const logout = async (req, res, next) => {
   await req.logout((err) => {

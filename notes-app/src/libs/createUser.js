@@ -13,5 +13,9 @@ export const createAdminUser = async () => {
 
   const result = await users.insertOne(newUser);
 
-  console.log("Admin user created", result.ops[0]);
+  if (result.insertedId) {
+    console.log("Admin user created with ID:", result.insertedId);
+  } else {
+    console.log("Admin user was not created");
+  }
 };

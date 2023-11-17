@@ -18,15 +18,27 @@ export const createNewNote = async (req, res) => {
       description,
     });
 
-  const newNote = { title, description, user: req.user.id };
-  await notes.insertOne(newNote);
-  req.flash("success_msg", "Note Added Successfully");
-  res.redirect("/notes");
+  const newNote = { title, description};
+  newNote.user = req.user.id ;
+  try {
+    await notes.insertOne(newNote);
+    req.flash("success_msg", "Note Added Successfully");
+    res.redirect("/notes");
+} catch (error) {
+    console.error("Error al crear la nota:", error);
+    // Manejar el error adecuadamente...
+}
 };
 
 export const renderNotes = async (req, res) => {
-  const notesArray = await notes.find({ user: req.user.id }).sort({ date: "desc" }).toArray();
-  res.render("notes/all-notes", { notes: notesArray });
+  try {
+    const notesArray = await notes.find({ user: req.user.id }).sort({ date: "desc" }).toArray();
+    res.render("notes/all-notes", { notes: notesArray });
+  } catch (error) {
+    console.error("Error retrieving notes:", error);
+    res.status(500).send("Error retrieving notes");
+  }
+  
 };
 
 export const renderEditForm = async (req, res) => {

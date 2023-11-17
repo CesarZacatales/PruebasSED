@@ -2,15 +2,28 @@ import bcrypt from "bcryptjs";
 import {MONGODB_URI} from "../config.js"
 import { MongoClient } from 'mongodb';
 
-// Establece la conexión a MongoDB (completa esta parte)
+// Centraliza la conexión a MongoDB
 const client = new MongoClient(MONGODB_URI);
-const db = client.db('notesdb');
-const users = db.collection('users');
+let db, users;
+
+async function connectDB() {
+  await client.connect();
+  db = client.db(); // Si tienes un nombre específico para la DB, úsalo aquí.
+  users = db.collection('users');
+}
+
+connectDB().catch(console.error);
 
 // Métodos para la contraseña
 const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
+  try {
+    const salt = await bcrypt.genSalt(10);
+    return await bcrypt.hash(password, salt);
+  } catch (error) {
+    // Manejar el error, por ejemplo, lanzar una excepción o registrar el error
+    console.error("Error al encriptar la contraseña:", error);
+    throw error;
+  }
 };
 
 const matchPassword = async function (password, hashedPassword) {
@@ -19,28 +32,3 @@ const matchPassword = async function (password, hashedPassword) {
 
 export { users, encryptPassword, matchPassword };
 
-
-/**
- * 
- * 
- * import { MongoClient } from 'mongodb';
-import bcrypt from 'bcryptjs';
-
-// Establece la conexión a MongoDB (completa esta parte)
-const client = new MongoClient(MONGODB_URI);
-const db = client.db(notesdb);
-const users = db.collection('users');
-
-// Métodos para la contraseña
-const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
-
-const matchPassword = async function (password, hashedPassword) {
-  return await bcrypt.compare(password, hashedPassword);
-};
-
-export { users, encryptPassword, matchPassword };
-
- */

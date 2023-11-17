@@ -10,7 +10,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import { MONGODB_URI, PORT } from "./config.js";
-
+import {client} from "./database.js";
 import indexRoutes from "./routes/index.routes.js";
 import notesRoutes from "./routes/notes.routes.js";
 import userRoutes from "./routes/auth.routes.js";
@@ -38,12 +38,15 @@ app.set("view engine", ".hbs");
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
+
 app.use(
   session({
     secret: "secret",
     resave: true,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: MONGODB_URI }),
+    store: MongoStore.create({
+      clientPromise: client.connect(), // Usa clientPromise aquí
+    }),
   })
 );
 app.use(passport.initialize());

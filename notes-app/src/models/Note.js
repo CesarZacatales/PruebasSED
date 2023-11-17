@@ -1,11 +1,17 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import { MONGODB_URI } from "../config.js";
 
-// Establece la conexión a MongoDB
+// Centraliza la conexión a MongoDB
 const client = new MongoClient(MONGODB_URI);
-await client.connect();
-const db = client.db('notesdb'); // Asegúrate de proporcionar el nombre de tu base de datos si es necesario
-const notes = db.collection('notes');
+let db, notes;
+
+async function connectDB() {
+  await client.connect();
+  db = client.db(); // Si tienes un nombre específico para la DB, úsalo aquí.
+  notes = db.collection('notes');
+}
+
+connectDB().catch(console.error);
 
 // Convertir id de string a ObjectId para búsquedas por _id
 const toObjectId = (id) => {
@@ -14,5 +20,4 @@ const toObjectId = (id) => {
   }
   return new ObjectId(id);
 };
-
 export { notes, toObjectId };

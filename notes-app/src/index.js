@@ -1,8 +1,10 @@
 import app from "./app.js";
 import { createAdminUser } from "./libs/createUser.js";
 import "./database.js";
+import {connectDB} from './database.js'
 
 async function main() {
+  await connectDB();
   await createAdminUser();
   app.listen(app.get("port"));
 
@@ -10,4 +12,4 @@ async function main() {
   console.log("Environment:", process.env.NODE_ENV);
 }
 
-main();
+main().catch(console.error);
